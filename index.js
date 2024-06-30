@@ -45,31 +45,92 @@ app.use(bodyParser.json());
 
 const MORPHER_API_URL = 'https://ws3.morpher.ru/russian/declension';
 
+// Прокси настройки
+const proxyOptions = {
+    host: '35.185.196.38',
+    port: 3128,
+};
+
+// Создаем агент для https прокси
+const agent = new HttpsProxyAgent({
+    ...proxyOptions,
+    secureProtocol: 'TLSv1_2_method',
+});
+
 // Функция для получения дательного падежа из API Morpher
 const getDativeCase = async (word) => {
     try {
-        const response = await axios.get(`${MORPHER_API_URL}?s=${encodeURIComponent(word)}`);
-        const parser = new xml2js.Parser();
-        const result = await parser.parseStringPromise(response.data);
-        return result.xml.Д[0]; // Извлекаем дательный падеж
+        console.log('Отправка запроса к API для слова:', word);
+
+        const query = encodeURIComponent(word);
+        const url = `${MORPHER_API_URL}?s=${query}`;
+
+        console.log('URL запрос:', url); 
+
+        const response = await axios.get(url, {
+            httpsAgent: agent,
+            rejectUnauthorized: true,
+        });
+
+        console.log('Ответ от API:', response.data); 
+
+        const parser = new xml2js.Parser({ explicitArray: false });
+        const parsedData = await parser.parseStringPromise(response.data);
+
+        if (parsedData.xml && parsedData.xml.Д) {
+            const dativeCase = parsedData.xml.Д;
+            return dativeCase;
+        } else {
+            throw new Error('Дательный падеж не найден в ответе');
+        }
     } catch (error) {
-        console.error(`Ошибка при склонении слова ${word}:`, error);
+        console.error(`Ошибка при склонении слова ${word}:`, error.message);
         throw error;
     }
 };
-
 
 const getRodCase = async (word) => {
     try {
-        const response = await axios.get(`${MORPHER_API_URL}?s=${encodeURIComponent(word)}`);
-        const parser = new xml2js.Parser();
-        const result = await parser.parseStringPromise(response.data);
-        return result.xml.Р[0]; 
+        console.log('Отправка запроса к API для слова:', word);
+
+        const query = encodeURIComponent(word);
+        const url = `${MORPHER_API_URL}?s=${query}`;
+
+        console.log('URL запрос:', url); 
+
+        const response = await axios.get(url, {
+            httpsAgent: agent,
+            rejectUnauthorized: true,
+        });
+
+        console.log('Ответ от API:', response.data); 
+
+        const parser = new xml2js.Parser({ explicitArray: false });
+        const parsedData = await parser.parseStringPromise(response.data);
+
+        if (parsedData.xml && parsedData.xml.Р) {
+            const rodCase = parsedData.xml.Р;
+            return rodCase;
+        } else {
+            throw new Error('Родительный падеж не найден в ответе');
+        }
     } catch (error) {
-        console.error(`Ошибка при склонении слова ${word}:`, error);
+        console.error(`Ошибка при склонении слова ${word}:`, error.message);
         throw error;
     }
 };
+
+// Пример использования getDativeCase
+app.post('/process', async (req, res) => {
+    const { word } = req.body;
+    try {
+        const dativeCase = await getDativeCase(word);
+        res.json({ dativeCase });
+    } catch (error) {
+        res.status(500).send('Произошла ошибка при обработке запроса.');
+    }
+});
+
 
 app.post('/Further', async (req, res) => {
     const { surname, name, patronymic, group, Teacher, one, two, three, four, DataStart, DataEnd } = req.body;
