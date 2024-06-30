@@ -38,7 +38,7 @@ const transporter = nodemailer.createTransport({
 let clientData = {};// Объект для хранения данных клиента
 
 app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/HTML/Main.html');
+    res.sendFile(__dirname + '/index.html');
 });
 
 app.use(bodyParser.json());
@@ -85,7 +85,7 @@ const getDativeCase = async (word) => {
             const dativeCase = parsedData.xml.Д;
             return dativeCase;
         } else {
-            throw new Error('Dative case not found in the response from Morpher API');
+            throw new Error('Дательный падеж не найден в ответе');
         }
     } catch (error) {
         console.error(`Ошибка при склонении слова ${word}:`, error.message);
@@ -128,88 +128,88 @@ app.post('/Further', async (req, res) => {
         let templatePath4 = '';
         switch (group) {
             case 'МН-101':
-                templatePath = 'D:\\Диплом\\МН-1\\Инд_задание.docx';
-                templatePath2 = 'D:\\Диплом\\МН-1\\Отчёт.docx';
-                templatePath3 = 'D:\\Диплом\\МН-1\\Характеристика.docx';
-                templatePath4 = 'D:\\Диплом\\МН-1\\Дневник.docx';
+                templatePath = path.join(__dirname, 'templates', 'МН-1', 'Инд_задание.docx');
+                templatePath2 = path.join(__dirname, 'templates', 'МН-1', 'Отчёт.docx');
+                templatePath3 = path.join(__dirname, 'templates', 'МН-1', 'Характеристика.docx');
+                templatePath4 = path.join(__dirname, 'templates', 'МН-1', 'Дневник.docx');
                 break;
             case 'МН-102':
-                templatePath = 'D:\\Диплом\\МН-1\\Инд_задание.docx';
-                templatePath2 = 'D:\\Диплом\\МН-1\\Отчёт.docx';
-                templatePath3 = 'D:\\Диплом\\МН-1\\Характеристика.docx';
-                templatePath4 = 'D:\\Диплом\\МН-1\\Дневник.docx';
+                templatePath = path.join(__dirname, 'templates', 'МН-1', 'Инд_задание.docx');
+                templatePath2 = path.join(__dirname, 'templates', 'МН-1', 'Отчёт.docx');
+                templatePath3 = path.join(__dirname, 'templates', 'МН-1', 'Характеристика.docx');
+                templatePath4 = path.join(__dirname, 'templates', 'МН-1', 'Дневник.docx');
                 break;
             case 'МП-101':
-                templatePath = 'D:\\Диплом\\МП-1\\Инд_задание.docx';
-                templatePath2 = 'D:\\Диплом\\МП-1\\Отчёт.docx';
-                templatePath3 = 'D:\\Диплом\\МП-1\\Характеристика.docx';
-                templatePath4 = 'D:\\Диплом\\МП-1\\Дневник.docx';
+                templatePath = path.join(__dirname, 'templates', 'МП-1', 'Инд_задание.docx');
+                templatePath2 = path.join(__dirname, 'templates', 'МП-1', 'Отчёт.docx');
+                templatePath3 = path.join(__dirname, 'templates', 'МП-1', 'Характеристика.docx');
+                templatePath4 = path.join(__dirname, 'templates', 'МП-1', 'Дневник.docx');
                 break;
             case 'МП-102':
-                templatePath = 'D:\\Диплом\\МП-1\\Инд_задание.docx';
-                templatePath2 = 'D:\\Диплом\\МП-1\\Отчёт.docx';
-                templatePath3 = 'D:\\Диплом\\МП-1\\Характеристика.docx';
-                templatePath4 = 'D:\\Диплом\\МП-1\\Дневник.docx';
+                templatePath = path.join(__dirname, 'templates', 'МП-1', 'Инд_задание.docx');
+                templatePath2 = path.join(__dirname, 'templates', 'МП-1', 'Отчёт.docx');
+                templatePath3 = path.join(__dirname, 'templates', 'МП-1', 'Характеристика.docx');
+                templatePath4 = path.join(__dirname, 'templates', 'МП-1', 'Дневник.docx');
                 break;
             case 'МТ-101':
-                templatePath = 'D:\\Диплом\\МТ-1\\Инд_задание.docx';
-                templatePath2 = 'D:\\Диплом\\МТ-1\\Отчёт.docx';
-                templatePath3 = 'D:\\Диплом\\МТ-1\\Характеристика.docx';
-                templatePath4 = 'D:\\Диплом\\МТ-1\\Дневник.docx';
+                templatePath = path.join(__dirname, 'templates', 'МТ-1', 'Инд_задание.docx');
+                templatePath2 = path.join(__dirname, 'templates', 'МТ-1', 'Отчёт.docx');
+                templatePath3 = path.join(__dirname, 'templates', 'МТ-1', 'Характеристика.docx');
+                templatePath4 = path.join(__dirname, 'templates', 'МТ-1', 'Дневник.docx');
                 break;
             case 'МТ-102':
-                templatePath = 'D:\\Диплом\\МТ-1\\Инд_задание.docx';
-                templatePath2 = 'D:\\Диплом\\МТ-1\\Отчёт.docx';
-                templatePath3 = 'D:\\Диплом\\МТ-1\\Характеристика.docx';
-                templatePath4 = 'D:\\Диплом\\МТ-1\\Дневник.docx';
+                templatePath = path.join(__dirname, 'templates', 'МТ-1', 'Инд_задание.docx');
+                templatePath2 = path.join(__dirname, 'templates', 'МТ-1', 'Отчёт.docx');
+                templatePath3 = path.join(__dirname, 'templates', 'МТ-1', 'Характеристика.docx');
+                templatePath4 = path.join(__dirname, 'templates', 'МТ-1', 'Дневник.docx');
                 break;
             case 'МТ-201':
-                templatePath = 'D:\\Диплом\\МТ-2\\Инд_задание.docx';
-                templatePath2 = 'D:\\Диплом\\МТ-2\\Отчёт.docx';
-                templatePath3 = 'D:\\Диплом\\МТ-2\\Характеристика.docx';
-                templatePath4 = 'D:\\Диплом\\МТ-2\\Дневник.docx';
+                templatePath = path.join(__dirname, 'templates', 'МТ-2', 'Инд_задание.docx');
+                templatePath2 = path.join(__dirname, 'templates', 'МТ-2', 'Отчёт.docx');
+                templatePath3 = path.join(__dirname, 'templates', 'МТ-2', 'Характеристика.docx');
+                templatePath4 = path.join(__dirname, 'templates', 'МТ-2', 'Дневник.docx');
                 break;
             case 'МТ-202':
-                templatePath = 'D:\\Диплом\\МТ-2\\Инд_задание.docx';
-                templatePath2 = 'D:\\Диплом\\МТ-2\\Отчёт.docx';
-                templatePath3 = 'D:\\Диплом\\МТ-2\\Характеристика.docx';
-                templatePath4 = 'D:\\Диплом\\МТ-2\\Дневник.docx';
+                templatePath = path.join(__dirname, 'templates', 'МТ-2', 'Инд_задание.docx');
+                templatePath2 = path.join(__dirname, 'templates', 'МТ-2', 'Отчёт.docx');
+                templatePath3 = path.join(__dirname, 'templates', 'МТ-2', 'Характеристика.docx');
+                templatePath4 = path.join(__dirname, 'templates', 'МТ-2', 'Дневник.docx');
                 break;
             case 'МТ-301':
-                templatePath = 'D:\\Диплом\\МТ-3\\Инд_задание.docx';
-                templatePath2 = 'D:\\Диплом\\МТ-3\\Отчёт.docx';
-                templatePath3 = 'D:\\Диплом\\МТ-3\\Характеристика.docx';
-                templatePath4 = 'D:\\Диплом\\МТ-3\\Дневник.docx';
+                templatePath = path.join(__dirname, 'templates', 'МТ-3', 'Инд_задание.docx');
+                templatePath2 = path.join(__dirname, 'templates', 'МТ-3', 'Отчёт.docx');
+                templatePath3 = path.join(__dirname, 'templates', 'МТ-3', 'Характеристика.docx');
+                templatePath4 = path.join(__dirname, 'templates', 'МТ-3', 'Дневник.docx');
                 break;
             case 'МТ-302':
-                templatePath = 'D:\\Диплом\\МТ-3\\Инд_задание.docx';
-                templatePath2 = 'D:\\Диплом\\МТ-3\\Отчёт.docx';
-                templatePath3 = 'D:\\Диплом\\МТ-3\\Характеристика.docx';
-                templatePath4 = 'D:\\Диплом\\МТ-3\\Дневник.docx';
+                templatePath = path.join(__dirname, 'templates', 'МТ-3', 'Инд_задание.docx');
+                templatePath2 = path.join(__dirname, 'templates', 'МТ-3', 'Отчёт.docx');
+                templatePath3 = path.join(__dirname, 'templates', 'МТ-3', 'Характеристика.docx');
+                templatePath4 = path.join(__dirname, 'templates', 'МТ-3', 'Дневник.docx');
                 break;
             case 'МТ-401':
-                templatePath = 'D:\\Диплом\\МТ-4\\Инд_задание.docx';
-                templatePath2 = 'D:\\Диплом\\МТ-4\\Отчёт.docx';
-                templatePath3 = 'D:\\Диплом\\МТ-4\\Характеристика.docx';
-                templatePath4 = 'D:\\Диплом\\МТ-4\\Дневник.docx';
+                templatePath = path.join(__dirname, 'templates', 'МТ-4', 'Инд_задание.docx');
+                templatePath2 = path.join(__dirname, 'templates', 'МТ-4', 'Отчёт.docx');
+                templatePath3 = path.join(__dirname, 'templates', 'МТ-4', 'Характеристика.docx');
+                templatePath4 = path.join(__dirname, 'templates', 'МТ-4', 'Дневник.docx');
                 break;
             case 'МТ-402':
-                templatePath = 'D:\\Диплом\\МТ-4\\Инд_задание.docx';
-                templatePath2 = 'D:\\Диплом\\МТ-4\\Отчёт.docx';
-                templatePath3 = 'D:\\Диплом\\МТ-4\\Характеристика.docx';
-                templatePath4 = 'D:\\Диплом\\МТ-4\\Дневник.docx';
+                templatePath = path.join(__dirname, 'templates', 'МТ-4', 'Инд_задание.docx');
+                templatePath2 = path.join(__dirname, 'templates', 'МТ-4', 'Отчёт.docx');
+                templatePath3 = path.join(__dirname, 'templates', 'МТ-4', 'Характеристика.docx');
+                templatePath4 = path.join(__dirname, 'templates', 'МТ-4', 'Дневник.docx');
                 break;
             case 'МагМТ-101':
-                templatePath = 'D:\\Диплом\\МагМТ-101\\Инд_задание.docx';
-                templatePath2 = 'D:\\Диплом\\МагМТ-101\\Отчёт.docx';
-                templatePath3 = 'D:\\Диплом\\МагМТ-101\\Характеристика.docx';
-                templatePath4 = 'D:\\Диплом\\МагМТ-101\\Дневник.docx';
+                templatePath = path.join(__dirname, 'templates', 'МагМТ-101', 'Инд_задание.docx');
+                templatePath2 = path.join(__dirname, 'templates', 'МагМТ-101', 'Отчёт.docx');
+                templatePath3 = path.join(__dirname, 'templates', 'МагМТ-101', 'Характеристика.docx');
+                templatePath4 = path.join(__dirname, 'templates', 'МагМТ-101', 'Дневник.docx');
                 break;
             case 'МагМТ-201':
-                templatePath = 'D:\\Диплом\\МагМТ-201\\Инд_задание.docx';
-                templatePath2 = 'D:\\Диплом\\МагМТ-201\\Отчёт.docx';
-                templatePath3 = 'D:\\Диплом\\МагМТ-201\\Характеристика.docx';
-                templatePath4 = 'D:\\Диплом\\МагМТ-201\\Дневник.docx';
+                templatePath = path.join(__dirname, 'templates', 'МагМТ-201', 'Инд_задание.docx');
+                templatePath2 = path.join(__dirname, 'templates', 'МагМТ-201', 'Отчёт.docx');
+                templatePath3 = path.join(__dirname, 'templates', 'МагМТ-201', 'Характеристика.docx');
+                templatePath4 = path.join(__dirname, 'templates', 'МагМТ-201', 'Дневник.docx');
                 break;
         }
         // Загружаем шаблон документа
@@ -236,7 +236,7 @@ app.post('/Further', async (req, res) => {
         const patronymicInitial = patronymic.substring(0, 1);
 
         if (!DataStart || !DataEnd) {
-            console.error('Error: DataStart or DataEnd is undefined!');
+            console.error('DataStart или DataEnd не определены');
             return res.status(400).send('Ошибка: Неверно введены даты!');
         }
 
@@ -246,7 +246,7 @@ app.post('/Further', async (req, res) => {
 
         // Проверяем, является ли дата корректной
         if (!dataStart.isValid() || !dataEnd.isValid()) {
-            console.error('Error: Invalid date format!');
+            console.error('Не правильный формат');
             return res.status(400).send('Ошибка: Неверный формат дат!');
         }
 
@@ -344,11 +344,17 @@ app.post('/Further', async (req, res) => {
         const buffer3 = doc3.getZip().generate({ type: 'nodebuffer' });
         const buffer4 = doc4.getZip().generate({ type: 'nodebuffer' });
 
-        // Записываем буфер в новый файл
-        fs.writeFileSync('D:\\Диплом\\Документы\\Инд_задание.docx', buffer);
-        fs.writeFileSync('D:\\Диплом\\Документы\\Отчёт.docx', buffer2);
-        fs.writeFileSync('D:\\Диплом\\Документы\\Характеристика.docx', buffer3);
-        fs.writeFileSync('D:\\Диплом\\Документы\\Дневник.docx', buffer4);      
+        // Определяем пути к файлам
+        const documentPath1 = path.join(__dirname, 'documents', 'Инд_задание.docx');
+        const documentPath2 = path.join(__dirname, 'documents', 'Отчёт.docx');
+        const documentPath3 = path.join(__dirname, 'documents', 'Характеристика.docx');
+        const documentPath4 = path.join(__dirname, 'documents', 'Дневник.docx');
+
+        // Записываем буфер в новые файлы с использованием относительных путей
+        fs.writeFileSync(documentPath1, buffer);
+        fs.writeFileSync(documentPath2, buffer2);
+        fs.writeFileSync(documentPath3, buffer3);
+        fs.writeFileSync(documentPath4, buffer4);      
 
         // Сохраняем данные клиента
         clientData.surname = surname;
@@ -356,61 +362,55 @@ app.post('/Further', async (req, res) => {
         clientData.nameInitial = nameInitial;
         clientData.patronymicInitial = patronymicInitial;
 
-        res.sendFile(__dirname + '/HTML/Further.html');
     } catch (error) {
         console.error('Ошибка при сохранении данных:', error);
         res.status(500).send('Произошла ошибка при сохранении данных.');
     }
 });
+app.get('/index2.html', (req, res) => {
+    res.sendFile(__dirname + '/index2.html');
+});
 app.post('/submit_email', async (req, res) => {
-    const email = req.body.email;
-    const filePath1 = 'D:\\Диплом\\Документы\\Инд_задание.docx';
-    const filePath2 = 'D:\\Диплом\\Документы\\Отчёт.docx';
-    const filePath3 = 'D:\\Диплом\\Документы\\Характеристика.docx';
-    const filePath4 = 'D:\\Диплом\\Документы\\Дневник.docx';
-
+    const { email } = req.body;
+    const { surname, group, nameInitial, patronymicInitial} = clientData; // Получаем данные о фамилии и группе из промежуточного хранилища
     try {
         const mailOptions = {
             from: 'plekhanovam.v@yandex.ru',
             to: email,
-            subject: 'Документы',
-            text: 'Это твои файлы практики',
+            subject: `Документы практики ${surname} ${nameInitial}.${patronymicInitial}. ${group}`, // Здесь добавлено  ФИО студента
+            text: '',
             attachments: [
                 {
                     filename: 'Инд_задание.docx',
-                    path: filePath1
+                    path: path.join(documentsDirectory, 'Инд_задание.docx')
                 },
                 {
                     filename: 'Отчёт.docx',
-                    path: filePath2
+                    path: path.join(documentsDirectory, 'Отчёт.docx')
                 },
                 {
                     filename: 'Характеристика.docx',
-                    path: filePath3
+                    path: path.join(documentsDirectory, 'Характеристика.docx')
                 },
                 {
                     filename: 'Дневник.docx',
-                    path: filePath4
+                    path: path.join(documentsDirectory, 'Дневник.docx')
                 }
             ]
         };
 
         await transporter.sendMail(mailOptions);
         console.log('Email sent to: ' + email);
-        res.status(200).json({ email: email }); // Возвращаем адрес электронной почты в качестве ответа
+        res.status(200).json({ email: email });
     } catch (error) {
         console.error('Ошибка при отправке письма:', error);
-        res.status(500).json({ error: 'Произошла ошибка при отправке письма.' }); // Возвращаем ошибку клиенту
+        res.status(500).json({ error: 'Произошла ошибка при отправке письма.' });
     }
 });
+const documentsDirectory = path.join(__dirname, 'documents');
 app.post('/submit_emailTeacher', async (req, res) => {
     const { emailTeacher } = req.body;
     const { surname, group, nameInitial, patronymicInitial} = clientData; // Получаем данные о фамилии и группе из промежуточного хранилища
-    const filePath1 = 'D:\\Диплом\\Документы\\Инд_задание.docx';
-    const filePath2 = 'D:\\Диплом\\Документы\\Отчёт.docx';
-    const filePath3 = 'D:\\Диплом\\Документы\\Характеристика.docx';
-    const filePath4 = 'D:\\Диплом\\Документы\\Дневник.docx';
-
     try {
         const mailOptions = {
             from: 'plekhanovam.v@yandex.ru',
@@ -420,19 +420,19 @@ app.post('/submit_emailTeacher', async (req, res) => {
             attachments: [
                 {
                     filename: 'Инд_задание.docx',
-                    path: filePath1
+                    path: path.join(documentsDirectory, 'Инд_задание.docx')
                 },
                 {
                     filename: 'Отчёт.docx',
-                    path: filePath2
+                    path: path.join(documentsDirectory, 'Отчёт.docx')
                 },
                 {
                     filename: 'Характеристика.docx',
-                    path: filePath3
+                    path: path.join(documentsDirectory, 'Характеристика.docx')
                 },
                 {
                     filename: 'Дневник.docx',
-                    path: filePath4
+                    path: path.join(documentsDirectory, 'Дневник.docx')
                 }
             ]
         };
@@ -445,11 +445,15 @@ app.post('/submit_emailTeacher', async (req, res) => {
         res.status(500).json({ error: 'Произошла ошибка при отправке письма.' });
     }
 });
+// Путь к папке с документами
+const documentsFolder = path.join(__dirname, 'documents');
 app.get('/download1', (req, res) => {
-    const filePath = 'D:\\Диплом\\Документы\\Инд_задание.docx';
+    const fileName = 'Инд_задание.docx';  // Имя файла для скачивания
+    const filePath = path.join(documentsFolder, fileName); // Полный путь к файлу
+
     try {
         // Отправляем файл пользователю как ответ на запрос
-        res.download(filePath, 'Инд_задание.docx', (error) => {
+        res.download(filePath, fileName, (error) => {
             if (error) {
                 console.error('Ошибка при скачивании файла:', error);
                 res.status(500).send('Произошла ошибка при скачивании файла.');
@@ -461,10 +465,12 @@ app.get('/download1', (req, res) => {
     }
 });
 app.get('/download2', (req, res) => {
-    const filePath = 'D:\\Диплом\\Документы\\Отчёт.docx';
+    const fileName = 'Отчёт.docx';  // Имя файла для скачивания
+    const filePath = path.join(documentsFolder, fileName); // Полный путь к файлу
+
     try {
         // Отправляем файл пользователю как ответ на запрос
-        res.download(filePath, 'Отчёт.docx', (error) => {
+        res.download(filePath, fileName, (error) => {
             if (error) {
                 console.error('Ошибка при скачивании файла:', error);
                 res.status(500).send('Произошла ошибка при скачивании файла.');
@@ -475,11 +481,14 @@ app.get('/download2', (req, res) => {
         res.status(500).send('Произошла ошибка при скачивании файла.');
     }
 });
+
 app.get('/download3', (req, res) => {
-    const filePath = 'D:\\Диплом\\Документы\\Характеристика.docx';
+    const fileName = 'Характеристика.docx';  // Имя файла для скачивания
+    const filePath = path.join(documentsFolder, fileName); // Полный путь к файлу
+
     try {
         // Отправляем файл пользователю как ответ на запрос
-        res.download(filePath, 'Характеристика.docx', (error) => {
+        res.download(filePath, fileName, (error) => {
             if (error) {
                 console.error('Ошибка при скачивании файла:', error);
                 res.status(500).send('Произошла ошибка при скачивании файла.');
@@ -491,10 +500,12 @@ app.get('/download3', (req, res) => {
     }
 });
 app.get('/download4', (req, res) => {
-    const filePath = 'D:\\Диплом\\Документы\\Дневник.docx';
+    const fileName = 'Дневник.docx';  // Имя файла для скачивания
+    const filePath = path.join(documentsFolder, fileName); // Полный путь к файлу
+
     try {
         // Отправляем файл пользователю как ответ на запрос
-        res.download(filePath, 'Дневник.docx', (error) => {
+        res.download(filePath, fileName, (error) => {
             if (error) {
                 console.error('Ошибка при скачивании файла:', error);
                 res.status(500).send('Произошла ошибка при скачивании файла.');
