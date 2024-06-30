@@ -43,55 +43,55 @@ app.get('/', (req, res) => {
 
 app.use(bodyParser.json());
 
-const MORPHER_API_URL = 'https://ws3.morpher.ru/russian/declension';
+// const MORPHER_API_URL = 'https://ws3.morpher.ru/russian/declension';
 
-// Прокси настройки
-const proxyOptions = {
-    host: '35.185.196.38',
-    port: 3128,
-};
-// Создаем агент для https прокси
-const agent = new HttpsProxyAgent({
-    ...proxyOptions,
-    // Указываем версию TLS
-    secureProtocol: 'TLSv1_2_method',
-});
+// // Прокси настройки
+// const proxyOptions = {
+//     host: '35.185.196.38',
+//     port: 3128,
+// };
+// // Создаем агент для https прокси
+// const agent = new HttpsProxyAgent({
+//     ...proxyOptions,
+//     // Указываем версию TLS
+//     secureProtocol: 'TLSv1_2_method',
+// });
 
-// Функция для получения дательного падежа из API Morpher
-const getDativeCase = async (word) => {
-    try {
-        console.log('Отправка запроса к API для слова:', word);
+// // Функция для получения дательного падежа из API Morpher
+// const getDativeCase = async (word) => {
+//     try {
+//         console.log('Отправка запроса к API для слова:', word);
 
-        // Формируем запрос с использованием encodeURIComponent для кодировки слова
-        const query = encodeURIComponent(word);
-        const url = `${MORPHER_API_URL}?s=${query}`;
+//         // Формируем запрос с использованием encodeURIComponent для кодировки слова
+//         const query = encodeURIComponent(word);
+//         const url = `${MORPHER_API_URL}?s=${query}`;
 
-        console.log('URL запрос:', url); // Логируем полный URL запросы
+//         console.log('URL запрос:', url); // Логируем полный URL запросы
 
-        // Отправляем GET запрос с использованием прокси-агента
-        const response = await axios.get(url, {
-            httpsAgent: agent,
-            rejectUnauthorized: true,
-        });
+//         // Отправляем GET запрос с использованием прокси-агента
+//         const response = await axios.get(url, {
+//             httpsAgent: agent,
+//             rejectUnauthorized: true,
+//         });
 
-        console.log('Ответ от API:', response.data); 
+//         console.log('Ответ от API:', response.data); 
 
-        // Парсим XML ответ
-        const parser = new xml2js.Parser({ explicitArray: false });
-        const parsedData = await parser.parseStringPromise(response.data);
+//         // Парсим XML ответ
+//         const parser = new xml2js.Parser({ explicitArray: false });
+//         const parsedData = await parser.parseStringPromise(response.data);
 
-        // Проверяем наличие дательного падежа в ответе
-        if (parsedData.xml && parsedData.xml.Д) {
-            const dativeCase = parsedData.xml.Д;
-            return dativeCase;
-        } else {
-            throw new Error('Дательный падеж не найден в ответе');
-        }
-    } catch (error) {
-        console.error(`Ошибка при склонении слова ${word}:`, error.message);
-        throw error;
-    }
-};
+//         // Проверяем наличие дательного падежа в ответе
+//         if (parsedData.xml && parsedData.xml.Д) {
+//             const dativeCase = parsedData.xml.Д;
+//             return dativeCase;
+//         } else {
+//             throw new Error('Дательный падеж не найден в ответе');
+//         }
+//     } catch (error) {
+//         console.error(`Ошибка при склонении слова ${word}:`, error.message);
+//         throw error;
+//     }
+// };
 
 
 app.post('/Further', async (req, res) => {
@@ -116,11 +116,11 @@ app.post('/Further', async (req, res) => {
         const teacherPatronymicInitial = teacherPatronymic ? teacherPatronymic.substring(0, 1) : '';
     try {
         // Получение дательного падежа для фамилии, имени и отчества
-        const [surnameDative, nameDative, patronymicDative] = await Promise.all([
-            getDativeCase(surname),
-            getDativeCase(name),
-            getDativeCase(patronymic)
-        ]);
+        // const [surnameDative, nameDative, patronymicDative] = await Promise.all([
+        //     getDativeCase(surname),
+        //     getDativeCase(name),
+        //     getDativeCase(patronymic)
+        // ]);
 
         let templatePath = '';
         let templatePath2 = '';
@@ -151,6 +151,12 @@ app.post('/Further', async (req, res) => {
                 templatePath3 = path.join(__dirname, 'templates', 'МП-1', 'Характеристика.docx');
                 templatePath4 = path.join(__dirname, 'templates', 'МП-1', 'Дневник.docx');
                 break;
+            case 'МП-103':
+                templatePath = path.join(__dirname, 'templates', 'МП-1', 'Инд_задание.docx');
+                templatePath2 = path.join(__dirname, 'templates', 'МП-1', 'Отчёт.docx');
+                templatePath3 = path.join(__dirname, 'templates', 'МП-1', 'Характеристика.docx');
+                templatePath4 = path.join(__dirname, 'templates', 'МП-1', 'Дневник.docx');
+                break;
             case 'МТ-101':
                 templatePath = path.join(__dirname, 'templates', 'МТ-1', 'Инд_задание.docx');
                 templatePath2 = path.join(__dirname, 'templates', 'МТ-1', 'Отчёт.docx');
@@ -162,6 +168,12 @@ app.post('/Further', async (req, res) => {
                 templatePath2 = path.join(__dirname, 'templates', 'МТ-1', 'Отчёт.docx');
                 templatePath3 = path.join(__dirname, 'templates', 'МТ-1', 'Характеристика.docx');
                 templatePath4 = path.join(__dirname, 'templates', 'МТ-1', 'Дневник.docx');
+                break;
+            case 'МТ-103':
+                templatePath = path.join(__dirname, 'templates', 'МП-1', 'Инд_задание.docx');
+                templatePath2 = path.join(__dirname, 'templates', 'МП-1', 'Отчёт.docx');
+                templatePath3 = path.join(__dirname, 'templates', 'МП-1', 'Характеристика.docx');
+                templatePath4 = path.join(__dirname, 'templates', 'МП-1', 'Дневник.docx');
                 break;
             case 'МТ-201':
                 templatePath = path.join(__dirname, 'templates', 'МТ-2', 'Инд_задание.docx');
@@ -312,9 +324,9 @@ app.post('/Further', async (req, res) => {
             intervals2: intervals2,
             intervals3: intervals3,
             intervals4: intervals4,
-            surnameDative: surnameDative, // Добавляем дательный падеж фамилии в данные
-            nameDative: nameDative,
-            patronymicDative: patronymicDative
+            // surnameDative: surnameDative, // Добавляем дательный падеж фамилии в данные
+            // nameDative: nameDative,
+            // patronymicDative: patronymicDative
 
         };
 
@@ -362,13 +374,11 @@ app.post('/Further', async (req, res) => {
         clientData.nameInitial = nameInitial;
         clientData.patronymicInitial = patronymicInitial;
 
+        res.sendFile(__dirname + '/index2.html');
     } catch (error) {
         console.error('Ошибка при сохранении данных:', error);
         res.status(500).send('Произошла ошибка при сохранении данных.');
     }
-});
-app.get('/index2.html', (req, res) => {
-    res.sendFile(__dirname + '/index2.html');
 });
 app.post('/submit_email', async (req, res) => {
     const { email } = req.body;
