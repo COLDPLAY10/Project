@@ -51,7 +51,7 @@ const getDativeCase = async (word) => {
         const response = await axios.get(`${MORPHER_API_URL}?s=${encodeURIComponent(word)}`);
         const parser = new xml2js.Parser();
         const result = await parser.parseStringPromise(response.data);
-        return result.xml.Р[0]; // Извлекаем дательный падеж
+        return result.xml.Д[0]; // Извлекаем дательный падеж
     } catch (error) {
         console.error(`Ошибка при склонении слова ${word}:`, error);
         throw error;
@@ -64,7 +64,7 @@ const getRodCase = async (word) => {
         const response = await axios.get(`${MORPHER_API_URL}?s=${encodeURIComponent(word)}`);
         const parser = new xml2js.Parser();
         const result = await parser.parseStringPromise(response.data);
-        return result.xml.Д[0]; 
+        return result.xml.Р[0]; 
     } catch (error) {
         console.error(`Ошибка при склонении слова ${word}:`, error);
         throw error;
