@@ -89,6 +89,37 @@ const getDativeCase = async (word) => {
     }
 };
 
+const getRodCase = async (word) => {
+    try {
+        console.log('Отправка запроса к API для слова:', word);
+
+        const query = encodeURIComponent(word);
+        const url = `${MORPHER_API_URL}?s=${query}`;
+
+        console.log('URL запрос:', url); 
+
+        const response = await axios.get(url, {
+            httpsAgent: agent,
+            rejectUnauthorized: true,
+        });
+
+        console.log('Ответ от API:', response.data); 
+
+        const parser = new xml2js.Parser({ explicitArray: false });
+        const parsedData = await parser.parseStringPromise(response.data);
+
+        if (parsedData.xml && parsedData.xml.Р) {
+            const rodCase = parsedData.xml.Р;
+            return rodCase;
+        } else {
+            throw new Error('Родительный падеж не найден в ответе');
+        }
+    } catch (error) {
+        console.error(`Ошибка при склонении слова ${word}:`, error.message);
+        throw error;
+    }
+};
+
 // Пример использования getDativeCase
 app.post('/process', async (req, res) => {
     const { word } = req.body;
@@ -127,6 +158,12 @@ app.post('/Further', async (req, res) => {
             getDativeCase(surname),
             getDativeCase(name),
             getDativeCase(patronymic)
+        ]);
+
+        const [surnamerod, namerod, patronymicrod] = await Promise.all([
+            getRodCase(surname),
+            getRodCase(name),
+            getRodCase(patronymic)
         ]);
 
         let templatePath = '';
@@ -333,8 +370,10 @@ app.post('/Further', async (req, res) => {
             intervals4: intervals4,
             surnameDative: surnameDative, // Добавляем дательный падеж фамилии в данные
             nameDative: nameDative,
-            patronymicDative: patronymicDative
-
+            patronymicDative: patronymicDative,
+            surnamerod: surnamerod, // Добавляем дательный падеж фамилии в данные
+            namerod: namerod,
+            patronymicrod: patronymicrod
         };
 
         doc.setData({
